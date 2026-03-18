@@ -20,19 +20,25 @@ const CurrencyOutput = () => {
     (e: ChangeEvent<HTMLSelectElement>) => {
       setToCurrency(e.target.value);
     },
-    [],
+    [setToCurrency],
   );
 
   return (
-    <div className="flex flex-col">
-      <input
-        className="w-1/2"
-        disabled
-        type="text"
-        value={formatCurrency(convertedAmount, toCurrency)}
-      />
-      <CurrencySelect value={toCurrency} onChange={handleCurrencyChange} />
-    </div>
+    <section className="flex flex-col gap-3 text-left">
+      <header className="flex items-baseline justify-between">
+        <h2 className="text-sm font-medium tracking-tight text-white">To</h2>
+      </header>
+
+      <div className="flex flex-col gap-2">
+        <CurrencySelect value={toCurrency} onChange={handleCurrencyChange} />
+        <input
+          className="w-full rounded-lg border border-slate-800 bg-slate-950/30 px-3 py-2 text-sm text-slate-100 shadow-sm outline-none transition placeholder:text-slate-500 hover:border-slate-700 focus:border-slate-600 focus:ring-2 focus:ring-slate-400/30 disabled:cursor-not-allowed disabled:opacity-70"
+          disabled
+          type="text"
+          value={formatCurrency(convertedAmount, toCurrency)}
+        />
+      </div>
+    </section>
   );
 };
 
