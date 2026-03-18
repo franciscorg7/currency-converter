@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react";
+import { useMemo, type ChangeEvent } from "react";
 import useConversion from "../hooks/useConversion";
 
 type CurrencySelectProps = {
@@ -14,6 +14,12 @@ export const CurrencySelect = ({
 }: CurrencySelectProps) => {
   const { currencyCodes } = useConversion();
 
+  const orderedCodes = useMemo(
+    () =>
+      Object.entries(currencyCodes)?.sort((a, b) => a[1].localeCompare(b[1])),
+    [currencyCodes],
+  );
+
   return (
     <select
       className={
@@ -25,7 +31,7 @@ export const CurrencySelect = ({
       value={value}
       onChange={onChange}
     >
-      {Object.entries(currencyCodes)
+      {orderedCodes
         .filter(([code, name]) => !!code && !!name)
         .map(([code, name]) => {
           return (
